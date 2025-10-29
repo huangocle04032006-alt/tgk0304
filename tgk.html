@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>精緻個人簡介</title>
+<style>
+body {
+  margin: 0;
+  font-family: 'Noto Sans TC', sans-serif;
+  background: linear-gradient(180deg, #0f1724 0%, #07192b 80%);
+  color: #e6eef8;
+  padding: 40px;
+  overflow-x: hidden;
+}
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+}
+
+/* Card cơ bản */
+.card {
+  background: rgba(255,255,255,0.03);
+  border-radius: 18px;
+  padding: 30px;
+  box-shadow: 0 10px 35px rgba(2,6,23,0.6);
+  border: 1px solid rgba(255,255,255,0.05);
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.8s forwards;
+}
+.card:nth-child(1) { animation-delay: 0.2s; }
+.card:nth-child(2) { animation-delay: 0.4s; }
+@keyframes fadeInUp {
+  to { opacity:1; transform: translateY(0);}
+}
+
+/* Profile cột trái */
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.avatar {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid #00d4ff;
+  margin-bottom: 15px;
+  transition: all 0.3s ease;
+}
+.avatar img { width:100%; height:100%; object-fit:cover; }
+.avatar:hover { transform: scale(1.05); box-shadow:0 8px 20px rgba(0,0,0,0.4);}
+.name { font-size:26px; font-weight:900; margin:0; }
+.meta { font-size:15px; color:#97a1b2; margin:5px 0; }
+.info { margin-top:20px; display:flex; flex-wrap:wrap; justify-content:center; gap:22px;}
+.info div {
+  font-size:14px; color:#dcecff; background:rgba(255,255,255,0.05);
+  padding:8px 12px; border-radius:12px; transition: all 0.3s ease;
+}
+.info div:hover {
+  background: linear-gradient(135deg,#00d4ff,#7c5cff);
+  color:#fff; transform:translateY(-3px); box-shadow:0 6px 15px rgba(0,0,0,0.3);
+}
+.strengths { margin-top:18px; display:flex; flex-wrap:wrap; gap:12px; }
+.strength { background: linear-gradient(135deg,#7c5cff,#00d4ff); padding:8px 14px; border-radius:14px; font-size:13px; color:#fff; font-weight:700; box-shadow:0 3px 8px rgba(0,0,0,0.2); transition:all 0.3s ease;}
+.strength:hover { transform:scale(1.08) translateY(-2px); box-shadow:0 6px 20px rgba(0,0,0,0.35); }
+.languages {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: center; /* căn giữa */
+}
+
+.languages h3 {
+  font-size: 16px;
+  color: #00d4ff;
+  margin-bottom: 8px;
+  border-bottom: 2px solid #7c5cff;
+  display: inline-block;
+  padding-bottom: 2px;
+}
+
+.language {
+  font-size: 14px;
+  color: #fff;
+  background: linear-gradient(135deg,#7c5cff,#00d4ff);
+  padding: 6px 12px;
+  border-radius: 12px;
+  font-weight: 700;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+}
+
+.language:hover {
+  transform: scale(1.05) translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.35);
+}
+/* Các section chi tiết */
+.section { margin-top:35px; opacity:0; transform:translateY(20px); animation:fadeInUp 0.8s forwards;}
+.section:nth-child(1){animation-delay:0.3s;}
+.section:nth-child(2){animation-delay:0.5s;}
+.section:nth-child(3){animation-delay:0.7s;}
+.section:nth-child(4){animation-delay:0.9s;}
+.section h2 { font-size:22px; color:#00d4ff; margin-bottom:15px; border-bottom:2px solid #7c5cff; display:inline-block; padding-bottom:4px; transition:all 0.3s ease; }
+.section h2:hover { color:#7c5cff; cursor:pointer; }
+.section p { font-size:15px; line-height:1.7; color:#dcecff; }
+
+/* Self-intro ảnh bên phải */
+.section.self-intro { display:flex; flex-direction:row; align-items:flex-end; gap:15px; }
+.section.self-intro .intro-text { width:70%; }
+.section.self-intro img {
+  width:30%;
+  border-radius:16px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.3);
+  flex-shrink:0;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.section.self-intro img:hover {
+  transform: scale(1.05);
+  box-shadow:0 12px 25px rgba(0,0,0,0.4);
+}
+
+/* School-intro ảnh bên phải */
+.section.school-intro { display:flex; flex-direction:row; align-items:flex-end; gap:15px; }
+.section.school-intro .school-text { width:65%; }
+.section.school-intro img {
+  width:35%;
+  border-radius:16px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.3);
+  flex-shrink:0;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.section.school-intro img:hover {
+  transform: scale(1.05);
+  box-shadow:0 12px 25px rgba(0,0,0,0.4);
+}
+
+/* Kinh nghiệm & mục tiêu */
+.job, .goal { background: rgba(255,255,255,0.04); padding:18px; border-radius:14px; margin-top:15px; border-left:4px solid #00d4ff;}
+.job h4, .goal h4 { margin:0 0 6px 0; font-size:17px; color:#7c5cff;}
+.job p, .goal p { margin:0; font-size:14px; color:#dcecff; }
+
+/* Layout 2 cột màn hình lớn */
+@media(min-width:900px){
+  .container { grid-template-columns:320px 1fr; gap:35px;}
+  .profile, .card.left { align-items:flex-start; text-align:left;}
+}
+
+/* Responsive nhỏ */
+@media(max-width:900px){
+  .info { flex-direction:column; align-items:center;}
+  .strengths { justify-content:center; }
+  .section.self-intro, .section.school-intro { flex-direction:column; }
+  .section.self-intro img, .section.self-intro .intro-text,
+  .section.school-intro img, .section.school-intro .school-text { width:100%; margin:0 auto; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <!-- Cột trái: profile -->
+  <div class="card left profile">
+    <div class="avatar"><img src="prolife_photo.jpg" alt="個人照片"></div>
+    <h1 class="name">許玉麗</h1>
+    <div class="meta">學號：114011122</div>
+    <div class="meta">亞洲大學 · 健康產業管理學系 · 一年級 ·資訊與科技1P班 </div>
+    <div class="info">
+      <div>Email：huangocle.04032006@gmail.com</div>
+      <div>電話：(09) 1234-5678</div>
+      <div>地點：台中市，台灣</div>
+      <div class="languages">
+  <h3>語言能力</h3>
+  <div class="language">越南文（母語）</div>
+  <div class="language">中文（B2）</div>
+</div>
+    </div>
+    <div class="strengths">
+      <div class="strength">創意思維</div>
+      <div class="strength">團隊協作</div>
+      <div class="strength">問題解決</div>
+      <div class="strength">快速學習</div>
+      <div class="strength">自我管理</div>
+    </div>
+  </div>
+
+  <!-- Cột phải: chi tiết -->
+  <div class="card right">
+    <div class="section self-intro">
+      <div class="intro-text">
+        <h2>自我介紹</h2>
+        <p>我熱愛探索科技與創意的結合，擅長將想法透過程式和設計實現。在課餘時間，我喜歡烘焙與攝影，將生活中的美好瞬間捕捉下來，並與朋友分享。我的優勢在於快速學習、團隊協作及解決複雜問題。</p>
+      </div>
+      <img src="3243.jpg" alt="自我介紹照片">
+    </div>
+
+    <div class="section school-intro">
+      <div class="school-text">
+        <h2>學校介紹</h2>
+        <p>亞洲大學成立於2001年，以創新教育與實務結合聞名。校園環境優美，提供學生豐富的學術資源與多元社團活動。資訊管理系重視前端開發、資料分析與資訊系統應用，讓學生能在實務專案中鍛鍊技能並累積經驗。</p>
+      </div>
+      <img src="asia.jpg" alt="學校照片">
+    </div>
+
+    <div class="section">
+      <h2>工作經驗</h2>
+      <div class="job">
+        <h4>甜點設計社團 — 副組長</h4>
+        <p>負責活動企劃、教學指導及市集專案統籌，帶領團隊完成多場校內活動，增強團隊合作及溝通能力。</p>
+      </div>
+      <div class="job">
+        <h4>前端實習 — 小型工作室</h4>
+        <p>參與網站切版與互動效果開發，協助優化行動版介面，提升使用者體驗，並學習版本控制及專案管理技巧。</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>目標與規劃</h2>
+      <div class="goal">
+        <h4>短期目標</h4>
+        <p>提升前端技術與設計能力，完成個人作品集，積極參與校內專案實踐並累積實務經驗。</p>
+      </div>
+      <div class="goal">
+        <h4>長期目標</h4>
+        <p>成為具備全方位能力的資訊管理人才，將科技、創意與實務結合，解決實際問題並創造價值，未來希望能在跨國專案中擔任核心角色。</p>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
